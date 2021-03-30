@@ -1,1 +1,1 @@
-web platform using Spring MVC pattern
+platform - web platform using Spring MVC pattern
