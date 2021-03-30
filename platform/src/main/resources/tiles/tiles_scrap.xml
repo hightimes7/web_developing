@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC
+"-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+"http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+
+<tiles-definitions>
+
+	<definition name="/scrap/printScrapAll" extends="baseLayout">
+		<put-attribute name="title" value="모든 스크랩 목록" />
+		<put-attribute name="body" value="/WEB-INF/views/scrap/printScrapAll.jsp" />
+	</definition>
+	
+	<definition name="/scrap/printManuScrap" extends="baseLayout">
+		<put-attribute name="title" value="제조업체 스크랩 목록" />
+		<put-attribute name="body" value="/WEB-INF/views/scrap/printManuScrap.jsp" />
+	</definition>
+	
+	<definition name="/scrap/printExpertScrap" extends="baseLayout">
+		<put-attribute name="title" value="전문가 스크랩 목록" />
+		<put-attribute name="body" value="/WEB-INF/views/scrap/printExpertScrap.jsp" />
+	</definition>
+
+</tiles-definitions>

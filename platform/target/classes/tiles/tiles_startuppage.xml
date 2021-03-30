@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC
+"-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+"http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+
+<tiles-definitions>
+
+	<definition name="/startuppage/consulting_more_d" extends="baseLayout">
+		<put-attribute name="title" value="철회된 컨설팅 목록" />
+		<put-attribute name="body" value="/WEB-INF/views/startuppage/consulting_more_d.jsp" />
+	</definition>
+	
+	<definition name="/startuppage/consulting_more_i" extends="baseLayout">
+		<put-attribute name="title" value="진행중인 컨설팅 목록" />
+		<put-attribute name="body" value="/WEB-INF/views/startuppage/consulting_more_i.jsp" />
+	</definition>
+	
+	<definition name="/startuppage/consulting_more_w" extends="baseLayout">
+		<put-attribute name="title" value="대기중인 컨설팅 목록" />
+		<put-attribute name="body" value="/WEB-INF/views/startuppage/consulting_more_w.jsp" />
+	</definition>
+	
+	<definition name="/startuppage/consultinglist" extends="baseLayout">
+		<put-attribute name="title" value="컨설팅 목록" />
+		<put-attribute name="body" value="/WEB-INF/views/startuppage/consultinglist.jsp" />
+	</definition>
+	
+	<definition name="/startuppage/estilist_more_de" extends="baseLayout">
+		<put-attribute name="title" value="철회된 견적 목록" />
+		<put-attribute name="body" value="/WEB-INF/views/startuppage/estilist_more_de.jsp" />
+	</definition>
+	
+	<definition name="/startuppage/estilist_more_ing" extends="baseLayout">
+		<put-attribute name="title" value="진행중인 컨설팅 목록" />
+		<put-attribute name="body" value="/WEB-INF/views/startuppage/estilist_more_ing.jsp" />
+	</definition>
+	
+	<definition name="/startuppage/estilist_more_w" extends="baseLayout">
+		<put-attribute name="title" value="대기중인 컨설팅 목록" />
+		<put-attribute name="body" value="/WEB-INF/views/startuppage/estilist_more_w.jsp" />
+	</definition>
+	
+	<definition name="/startuppage/manu_estilist" extends="baseLayout">
+		<put-attribute name="title" value="모든 견적 목록" />
+		<put-attribute name="body" value="/WEB-INF/views/startuppage/manu_estilist.jsp" />
+	</definition>
+	
+	<definition name="/startuppage/com_consultinglist" extends="baseLayout">
+		<put-attribute name="title" value="완료 목록" />
+		<put-attribute name="body" value="/WEB-INF/views/startuppage/com_consultinglist.jsp" />
+	</definition>
+	
+	<definition name="/startuppage/com_consulting_more" extends="baseLayout">
+		<put-attribute name="title" value="컨설팅 완료 목록" />
+		<put-attribute name="body" value="/WEB-INF/views/startuppage/com_consulting_more.jsp" />
+	</definition>
+	
+	<definition name="/startuppage/com_esti_more" extends="baseLayout">
+		<put-attribute name="title" value="견적 완료 목록" />
+		<put-attribute name="body" value="/WEB-INF/views/startuppage/com_esti_more.jsp" />
+	</definition>
+	
+</tiles-definitions>

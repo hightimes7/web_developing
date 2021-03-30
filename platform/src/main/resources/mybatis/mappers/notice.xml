@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+      PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mapper.notice">
+
+	<select id="getNoticeList" resultType="noticeVO">
+		<![CDATA[
+		select no, title, content, writer, writeDate, cnt
+		from(select no, title, content, writer, writeDate, cnt, row_number()
+			 over(order by no desc)
+			 as rnum from notice) mp
+			 where rnum between #{start} and #{end} order by no desc
+		]]>
+	</select>
+	
+	<insert id="writeNotice" parameterType="noticeVO">
+		<selectKey keyProperty="no" resultType="int" order="BEFORE">
+	    	select nvl(max(no),0) from notice
+	    </selectKey>
+		insert into notice(no, writer, title, content)
+		values(#{no}+1, '관리자', #{title}, #{content}) 
+	</insert>
+	
+	<select id="selectNotice" resultType="noticeVO" parameterType="int">
+		<![CDATA[
+		select * from notice
+		where no=#{no}
+		]]>
+	</select>
+	
+	<update id="updateNotice" parameterType="noticeVO">
+		<![CDATA[
+		update notice
+		set title=#{title}, content=#{content}
+		where no=#{no}
+		]]>
+	</update>
+	
+	<update id="cntPlus" parameterType="int">
+		<![CDATA[
+		update notice
+		set cnt=cnt+1
+		where no=#{no}
+		]]>
+	</update>
+	
+	<delete id="deleteNotice" parameterType="int">
+		<![CDATA[
+		delete from notice
+		where no=#{no}
+		]]>
+	</delete>
+	
+	<select id="listCount" resultType="int">
+		<![CDATA[
+		select count(*) from notice
+		]]>
+	</select>
+
+</mapper>

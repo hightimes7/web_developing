@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+      PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mapper.expertQnA">
+
+	<select id="getList" resultType="expertQnAVO">
+		<![CDATA[
+		select level, no, parentNO, content, id, writeDate, expId
+		from expertQnA
+		where expId=#{expId}
+		start with parentNO=0
+		connect by prior no=parentNO
+		order siblings by no desc
+		]]>
+	</select>
+	
+	<insert id="addQnA" parameterType="expertQnAVO">
+		<selectKey keyProperty="no" resultType="int" order="BEFORE">
+	    	select nvl(max(no), 0) +1 from expertQnA
+	    </selectKey>
+		insert into expertQnA(no, parentNO, content, id, expId)
+		values(#{no}, #{parentNO}, #{content}, #{id}, #{expId})
+	</insert>
+	<!-- 
+	<insert id="addAnswer" parameterType="manufacQnAVO">
+		<selectKey keyProperty="no" resultType="int" order="BEFORE">
+	    	select nvl(max(articleNO), 0) +1 from expertQnA
+	    </selectKey>
+		insert into expertQnA(no, ,parentNO, content, id)
+		values(#{no}, #{parentNO}, #{content}, #{id})
+	</insert>
+	 -->
+	<update id="modExpertQnA" parameterType="java.util.Map">
+		<![CDATA[
+		update expertQnA
+		set content=#{content}, writeDate=sysdate
+		where no=#{no}
+		]]>
+	</update>
+	
+	<delete id="delExpertQnA" parameterType="int">
+		<![CDATA[
+		delete from expertQnA
+		where no in(
+						   select no from expertQnA
+						   start with no = #{no}
+						   connect by prior no = parentNO)
+		]]>
+	</delete>
+
+</mapper>

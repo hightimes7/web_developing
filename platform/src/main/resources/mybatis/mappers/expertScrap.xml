@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+      PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mapper.expertScrap">
+  	<resultMap id="scrapResult" type="scrapVO">
+   		<result property="no" column="no"/>
+   		<result property="compid" column="compid"/>
+   		<result property="expid" column="expid"/>
+   	</resultMap>
+	
+	<select id="printExpertScrap" resultMap="scrapResult" parameterType="String">
+		<![CDATA[
+			SELECT eps.no, eps.compid, eps.expid, ep.expname, ep.expbizfield, ep.exptel 
+			FROM expertscrap eps, expert ep
+			WHERE ROWNUM < 5 and compid = #{compid} and eps.expid = ep.id
+			order by no desc
+		]]>
+	</select>
+	
+	<select id="printExpertScrapAll" resultMap="scrapResult" parameterType="java.util.Map">
+		<![CDATA[
+			SELECT no, compid, expid, expname, expbizfield, exptel
+	         FROM (SELECT eps.no, eps.compid, eps.expid, ep.expname, ep.expbizfield, ep.exptel,ROW_NUMBER() 
+	         OVER(ORDER BY eps.no DESC) 
+	         AS RNUM FROM expertscrap eps, expert ep
+	         WHERE compid = #{compId} and eps.expid = ep.id) MP
+	         WHERE RNUM BETWEEN #{pageVO.start} AND #{pageVO.end} ORDER BY no DESC
+		]]>
+	</select>
+	
+
+	<insert id="scrapExpert" parameterType="scrapVO">
+		<![CDATA[
+		
+			INSERT INTO expertscrap(no, compid, expid)
+		  	VALUES((SELECT NVL(MAX(no)+1,0) FROM expertscrap), #{compid}, #{expid})
+        ]]>
+	</insert>
+
+
+	<delete id="deleteExpertScrap" parameterType="int">
+		<![CDATA[
+			delete from expertscrap	where no = #{no}
+		]]>
+	</delete>
+	
+	
+	<select id="listCount" resultType="int">
+		<![CDATA[
+			select count(*) from expertscrap
+			where compId=#{compId}
+		]]>
+	</select>
+	
+	<select id="overlap" resultType="int">
+		<![CDATA[
+			select count(*) from expertscrap
+			where expid=#{expId} and compId=#{compId}
+		]]>
+	</select>
+	
+
+</mapper>
+   	

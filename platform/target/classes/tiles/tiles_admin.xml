@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC
+"-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+"http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+
+<tiles-definitions>
+
+	<definition name="/admin/chooseForm" extends="baseLayout">
+      <put-attribute name="title" value="회원가입" />
+      <put-attribute name="body" value="/WEB-INF/views/admin/chooseForm.jsp" />
+   	</definition>
+
+   <definition name="/admin/changeLogForm" extends="baseLayout">
+      <put-attribute name="title" value="전체 변경 내역" />
+      <put-attribute name="body" value="/WEB-INF/views/admin/changeLogForm.jsp" />
+   </definition>
+   
+   <definition name="/admin/startchangeLogForm" extends="baseLayout">
+      <put-attribute name="title" value="스타트원 수정내역" />
+      <put-attribute name="body" value="/WEB-INF/views/admin/startchangeLogForm.jsp" />
+   </definition>
+   
+   <definition name="/admin/manuchangeLogForm" extends="baseLayout">
+      <put-attribute name="title" value="제조업체 수정내역" />
+      <put-attribute name="body" value="/WEB-INF/views/admin/manuchangeLogForm.jsp" />
+   </definition>
+   
+   <definition name="/admin/expertchangeLogForm" extends="baseLayout">
+      <put-attribute name="title" value="제조업체 수정내역" />
+      <put-attribute name="body" value="/WEB-INF/views/admin/expertchangeLogForm.jsp" />
+   </definition>
+   
+    <definition name="/admin/LoginLogForm" extends="baseLayout">
+      <put-attribute name="title" value="로그인 로그 내역" />
+      <put-attribute name="body" value="/WEB-INF/views/admin/LoginLogForm.jsp" />
+   </definition>
+   
+</tiles-definitions>

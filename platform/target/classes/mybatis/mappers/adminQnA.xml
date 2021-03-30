@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+      PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mapper.adminQnA">
+
+	<select id="selectAllList" resultType="adminQnAVO" parameterType="java.util.Map">
+		<![CDATA[
+		SELECT * FROM(
+		SELECT ROWNUM as recNum, LVL, no, parentNO, writer, title, content, writeDate from(
+		select level as LVL, no, parentNO, writer, title, content, writeDate from qna
+		start with parentNO = 0
+		connect by prior no = parentNO
+		order siblings by no desc))
+		where recNum between (#{section}-1)*100 + (#{pageNum}-1)*10+1 and (#{section}-1)*100 + #{pageNum}*10
+		]]>
+	</select>
+	
+	<select id="listCount" resultType="int">
+		<![CDATA[
+		select count(*) from qna
+		]]>
+	</select>
+	 
+	 <insert id="insertNewArticle" parameterType="adminQnAVO">
+	 	<![CDATA[
+	 	insert into qna(no, parentNO, title, content, writer)
+	 	values(#{no}, #{parentNO}, #{title}, #{content}, #{writer})
+	 	]]>
+	 </insert>
+	 
+	 <select id="viewArticle" resultType="adminQnAVO" parameterType="int">
+	 	<![CDATA[
+	 	select * from qna
+	 	where no = #{no}
+	 	]]>
+	 </select>
+	 
+	<select id="selectNewno" resultType="int">
+		<![CDATA[
+		select nvl(max(no), 0) +1 from qna
+		]]>
+	</select>
+	
+	<update id="updateArticle" parameterType="adminQnAVO">
+		<![CDATA[
+			update qna
+			set title=#{title}, content=#{content}
+			where no=#{no}
+		]]>
+	</update>
+	
+	<delete id="deleteArticle" parameterType="int">
+		<![CDATA[
+			delete from qna
+			where no in(
+					   select no from qna
+					   start with no = #{no}
+					   connect by prior no = parentNO)
+		]]>
+	</delete>
+	
+</mapper>

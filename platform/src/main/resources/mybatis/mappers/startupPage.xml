@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+      PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="mapper.startuppage">
+	
+	<select id="listCount" resultType="int">
+		<![CDATA[
+			SELECT COUNT(*)
+			  FROM quotation
+		]]>
+	</select>
+	
+	<select id="estilistCount_i" resultType="int">
+		<![CDATA[
+			select count(*) from quotation where quotestatus = 1 and compId = #{compId}
+		]]>
+	</select>
+	
+	<select id="estilistCount_c" resultType="int">
+		<![CDATA[
+			select count(*) from quotation where quotestatus = 2 and compId = #{compId}
+		]]>
+	</select>
+	
+	<select id="estilistCount_w" resultType="int">
+		<![CDATA[
+			select count(*) from quotation where quotestatus = 0 and compId = #{compId}
+		]]>
+	</select>
+	
+	<select id="estilistCount_d" resultType="int">
+		<![CDATA[
+			select count(*) from quotation where quotestatus = 3 and compId = #{compId}
+		]]>
+	</select>
+
+	<select id="selectAllConlist" resultType="startuppagevo">
+		<![CDATA[
+			select expname,status, reqdate, no from 
+			(select e.expname, 
+            c.status, 
+            c.reqdate,c.no, row_number() 
+            over(order by c.reqdate desc)
+            as rnum 
+			from expert e, consulting c
+			where e.id = c.expid and c.compid=#{compId}) MP 
+			WHERE RNUM BETWEEN #{pagevo.start} AND #{pagevo.end} ORDER BY reqdate DESC 
+		]]>
+	</select>
+	
+	<select id="selectWaitConlist" resultType="startuppagevo">
+		<![CDATA[
+			select expname,status, reqdate,no from 
+			(select e.expname, 
+            c.status, 
+            c.reqdate,c.no, row_number() 
+            over(order by c.reqdate desc)
+            as rnum 
+			from expert e, consulting c
+			where e.id = c.expid and c.status =0 and c.compid=#{compId}) MP 
+			WHERE RNUM BETWEEN #{pagevo.start} AND #{pagevo.end} ORDER BY reqdate DESC 
+		]]>
+	</select>
+	
+		<select id="selectIngConlist" resultType="startuppagevo">
+		<![CDATA[
+			select expname,status, reqdate,no from 
+			(select e.expname, 
+            c.status, 
+            c.reqdate,c.no, row_number() 
+            over(order by c.reqdate desc)
+            as rnum 
+			from expert e, consulting c
+			where e.id = c.expid and c.status =1 and c.compid=#{compId}) MP 
+			WHERE RNUM BETWEEN #{pagevo.start} AND #{pagevo.end} ORDER BY reqdate DESC 
+		]]>
+	</select>
+	
+	<select id="selectComConlist" resultType="startuppagevo">
+		<![CDATA[
+			select expname,status, reqdate,no from 
+			(select e.expname, 
+            c.status, 
+            c.reqdate,c.no, row_number() 
+            over(order by c.reqdate desc)
+            as rnum 
+			from expert e, consulting c
+			where e.id = c.expid and c.status =2 and c.compid=#{compId}) MP 
+			WHERE RNUM BETWEEN #{pagevo.start} AND #{pagevo.end} ORDER BY reqdate DESC 
+		]]>
+	</select>
+	
+	<select id="selectDeConlist" resultType="startuppagevo">
+		<![CDATA[
+			select expname,status, reqdate,no from 
+			(select e.expname, 
+            c.status, 
+            c.reqdate,c.no, row_number() 
+            over(order by c.reqdate desc)
+            as rnum 
+			from expert e, consulting c
+			where e.id = c.expid and c.status =3 and c.compid=#{compId}) MP 
+			WHERE RNUM BETWEEN #{pagevo.start} AND #{pagevo.end} ORDER BY reqdate DESC 
+		]]>
+	</select>
+
+	 <update id = "upstatus_con_ing" parameterType = "int">
+    	<![CDATA[
+	     update consulting
+	     set status=1
+	     where
+	     no=#{no}
+      ]]>
+     
+    </update>
+        <update id = "upstatus_con_com" parameterType = "int">
+    	<![CDATA[
+	     update consulting
+	     set status=2
+	     where
+	     no=#{no}
+      ]]>
+     
+    </update>
+    <update id = "upstatus_con_de" parameterType = "int">
+    	<![CDATA[
+	     update consulting
+	     set status=3
+	     where
+	     no=#{no}
+      ]]>
+     
+    </update>
+	
+	<select id="conlistCount_i" resultType="int">
+	<![CDATA[
+		select count(*) from consulting where status = 1 and compId = #{compId}
+	]]>
+	</select>
+	<select id="conlistCount_c" resultType="int">
+	<![CDATA[
+		select count(*) from consulting where status = 2 and compId = #{compId}
+	]]>
+	</select>
+	<select id="conlistCount_w" resultType="int">
+	<![CDATA[
+		select count(*) from consulting where status = 0 and compId = #{compId}
+	]]>
+	</select>
+	<select id="conlistCount_d" resultType="int">
+	<![CDATA[
+		select count(*) from consulting where status = 3 and compId = #{compId}
+	]]>
+	</select>
+	
+	<select id="selectAllEstilist" resultType="startuppagevo">
+		<![CDATA[
+			select manuname,quotestatus, reqquote, no,compId from 
+			(select m.manuname, q.quotestatus, q.reqquote,q.no,q.compId, row_number() over(order by q.reqquote desc) as rnum 
+			from quotation q, manufacturer m
+			where m.id = q.manuid and q.compId=#{compId}) MP 
+			WHERE RNUM BETWEEN #{pagevo.start} AND #{pagevo.end} ORDER BY reqquote DESC 
+		]]>
+	</select>
+	<select id="selectWaitEstilist" resultType="startuppagevo">
+		<![CDATA[
+			select manuname,quotestatus, reqquote,no,compId from 
+			(select m.manuname, q.quotestatus, q.reqquote,q.no,q.compId, row_number() over(order by q.reqquote desc) as rnum 
+			from quotation q, manufacturer m
+			where m.id = q.manuid and q.quotestatus = 0 and q.compId=#{compId}) MP 
+			WHERE RNUM BETWEEN #{pagevo.start} AND #{pagevo.end} ORDER BY reqquote DESC 
+		]]>
+	</select>
+	
+	<select id="selectIngEstilist" resultType="startuppagevo">
+		<![CDATA[
+			select manuname,quotestatus, reqquote,no,compId from 
+			(select m.manuname, q.quotestatus, q.reqquote,q.no,q.compId, row_number() over(order by q.reqquote desc) as rnum 
+			from quotation q, manufacturer m
+			where m.id = q.manuid and q.quotestatus = 1 and q.compId=#{compId}) MP 
+			WHERE RNUM BETWEEN #{pagevo.start} AND #{pagevo.end} ORDER BY reqquote DESC 
+		]]>
+	</select>
+	
+	<select id="selectComEstilist" resultType="startuppagevo">
+		<![CDATA[
+			select manuname,quotestatus, reqquote,no,compId from 
+			(select m.manuname, q.quotestatus, q.reqquote,q.no,q.compId, row_number() over(order by q.reqquote desc) as rnum 
+			from quotation q, manufacturer m
+			where m.id = q.manuid and q.quotestatus = 2 and q.compId=#{compId}) MP 
+			WHERE RNUM BETWEEN #{pagevo.start} AND #{pagevo.end} ORDER BY reqquote DESC 
+		]]>
+	</select>
+	
+	<select id="selectDeEstilist" resultType="startuppagevo">
+		<![CDATA[
+			select manuname,quotestatus, reqquote,no,compId from 
+			(select m.manuname, q.quotestatus, q.reqquote,q.no,q.compId, row_number() over(order by q.reqquote desc) as rnum 
+			from quotation q, manufacturer m
+			where m.id = q.manuid and q.quotestatus = 3 and q.compId=#{compId}) MP 
+			WHERE RNUM BETWEEN #{pagevo.start} AND #{pagevo.end} ORDER BY reqquote DESC 
+		]]>
+	</select>
+	
+	<delete id="deleteesti" parameterType="int">
+        delete from quotation where no=#{no}
+    </delete>
+    
+    <delete id="deletecon" parameterType="int">
+        delete from consulting where no=#{no}
+    </delete>
+    
+    <update id = "upstatus_esti_ing" parameterType = "int">
+    	<![CDATA[
+	     update quotation
+	     set quotestatus=1
+	     where
+	     no=#{no}
+      ]]>
+    </update>
+    
+        <update id = "upstatus_esti_com" parameterType = "int">
+    	<![CDATA[
+	     update quotation
+	     set quotestatus=2
+	     where
+	     no=#{no}
+      ]]>
+    </update>
+    
+    <update id = "upstatus_esti_de" parameterType = "int">
+    	<![CDATA[
+	     update quotation
+	     set quotestatus=3
+	     where
+	     no=#{no}
+      ]]>
+    </update>
+	
+</mapper>
+

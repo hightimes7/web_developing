@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration 	PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-config.dtd">
+	
+	<configuration>
+		<typeAliases>
+			<typeAlias type="com.spring.plt.admin.vo.AdminVO" alias="adminVO"/>
+			<typeAlias type="com.spring.plt.admin.vo.EditInfoVO" alias="editInfoVO"/>
+			<typeAlias type="com.spring.plt.admin.vo.LoginLogVO" alias="loginLogVO"/>
+			<typeAlias type="com.spring.plt.adminQnA.vo.AdminQnAVO" alias="adminQnAVO"/>
+			<typeAlias type="com.spring.plt.manufacQnA.vo.ManufacQnAVO" alias="manufacQnAVO"/>
+			<typeAlias type="com.spring.plt.expertQnA.vo.ExpertQnAVO" alias="expertQnAVO"/>
+			<typeAlias type="com.spring.plt.consulting.vo.ConsultingVO" alias="consultingVO"/>
+			<typeAlias type="com.spring.plt.expert.vo.ExpertVO" alias="expertVO"/>
+			<typeAlias type="com.spring.plt.expertQnA.vo.ExpertQnAVO" alias="expertQnAVO"/>
+			<typeAlias type="com.spring.plt.manufacQnA.vo.ManufacQnAVO" alias="manufacQnAVO"/>
+			<typeAlias type="com.spring.plt.manufac.vo.ManufacVO" alias="manufacVO"/>
+			<typeAlias type="com.spring.plt.message.vo.MessageVO" alias="messageVO"/>
+			<typeAlias type="com.spring.plt.production.vo.ProductionVO" alias="ProductionVO"/>
+			<typeAlias type="com.spring.plt.scrap.vo.ScrapVO" alias="ScrapVO"/>
+			<typeAlias type="com.spring.plt.startup.vo.StartUpVO" alias="startUpVO"/>
+			<typeAlias type="com.spring.plt.expert.vo.ExpImageVO" alias="expImageVO"/>
+			<typeAlias type="com.spring.plt.notice.vo.NoticeVO" alias="noticeVO"/>
+			<typeAlias type="com.spring.plt.find.vo.FindVO" alias="findVO"/>
+			<typeAlias type="com.spring.plt.quotation.vo.QuotationVO" alias="quotationVO"/>
+			<typeAlias type="com.spring.plt.startuppage.vo.StartupPageVO" alias="startuppagevo"/>
+			<typeAlias type="com.spring.plt.manufacpage.vo.ManufacPageVO" alias="ManufacPageVO"/>
+			<typeAlias type="com.spring.plt.expertpage.vo.ExpertPageVO" alias="expertPageVO"/>
+			<typeAlias type="com.spring.plt.page.vo.PageVO" alias="pageVO"/>
+			<typeAlias type="com.spring.plt.allUser.AllUserVO" alias="allUserVO"/>
+			<typeAlias type="com.spring.plt.map.vo.MapVO" alias="mapVO"/>
+		</typeAliases>
+	</configuration>

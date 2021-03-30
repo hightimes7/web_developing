@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+      PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace = "mapper.manufacpage">
+	
+	<select id="selectAllEstilist" resultType="ManufacPageVO">
+		<![CDATA[
+			select compname,quotestatus, reqquote, no from 
+			(select s.compname, q.quotestatus, q.reqquote, q.no, row_number() over(order by q.reqquote desc) as rnum 
+			from quotation q, startup s
+			where s.id = q.compid and q.manuid = #{manuId}) MP 
+			WHERE RNUM BETWEEN #{pagevo.start} AND #{pagevo.end} ORDER BY reqquote DESC 
+		]]>
+	</select>
+	
+	<select id="selectWaitingEstiList" resultType="ManufacPageVO">
+		<![CDATA[
+			select compname,quotestatus, reqquote, no from 
+			(select s.compname, q.quotestatus, q.reqquote, q.no, row_number() over(order by q.reqquote desc) as rnum 
+			from quotation q, startup s
+			where s.id = q.compid and q.quotestatus = 0 and q.manuid = #{manuId}) MP 
+			WHERE RNUM BETWEEN #{pagevo.start} AND #{pagevo.end} ORDER BY reqquote DESC 
+		]]>
+	</select>
+	
+	<select id="selectIngEstiList" resultType="ManufacPageVO">
+		<![CDATA[
+			select compname,quotestatus, reqquote, no from 
+			(select s.compname, q.quotestatus, q.reqquote, q.no, row_number() over(order by q.reqquote desc) as rnum 
+			from quotation q, startup s
+			where s.id = q.compid and q.quotestatus = 1 and q.manuid = #{manuId}) MP 
+			WHERE RNUM BETWEEN #{pagevo.start} AND #{pagevo.end} ORDER BY reqquote DESC 
+		]]>
+	</select>
+	
+	<select id="selectComEstiList" resultType="ManufacPageVO">
+		<![CDATA[
+			select compname,quotestatus, reqquote, no from 
+			(select s.compname, q.quotestatus, q.reqquote, q.no, row_number() over(order by q.reqquote desc) as rnum 
+			from quotation q, startup s
+			where s.id = q.compid and q.quotestatus = 2 and q.manuid = #{manuId}) MP 
+			WHERE RNUM BETWEEN #{pagevo.start} AND #{pagevo.end} ORDER BY reqquote DESC 
+		]]>
+	</select>
+	
+	<select id="selectDeEstiList" resultType="ManufacPageVO">
+		<![CDATA[
+			select compname,quotestatus, reqquote, no from 
+			(select s.compname, q.quotestatus, q.reqquote, q.no, row_number() over(order by q.reqquote desc) as rnum 
+			from quotation q, startup s
+			where s.id = q.compid and q.quotestatus = 4 and q.manuid = #{manuId}) MP 
+			WHERE RNUM BETWEEN #{pagevo.start} AND #{pagevo.end} ORDER BY reqquote DESC 
+		]]>
+	</select>
+	
+	<select id="listCount" resultType="int">
+	<![CDATA[
+		SELECT COUNT(*)
+		  FROM quotation
+	]]>
+	</select>
+	
+	<delete id="deleteesti" parameterType="int">
+        delete from quotation q where no=#{no}
+    </delete>
+    
+    <update id = "upstatus_esti_ing" parameterType = "int">
+    	<![CDATA[
+	     update quotation
+	     set quotestatus=1
+	     where
+	     no=#{no}
+      ]]>
+    </update>
+        <update id = "upstatus_esti_com" parameterType = "int">
+    	<![CDATA[
+	     update quotation
+	     set quotestatus=2
+	     where
+	     no=#{no}
+      ]]>
+    </update>
+    
+    <update id = "upstatus_esti_de" parameterType = "int">
+    	<![CDATA[
+	     update quotation
+	     set quotestatus=4
+	     where
+	     no=#{no}
+	    ]]>
+    </update>
+    
+    <select id="estilistCount_i" resultType="int">
+	<![CDATA[
+		select count(*) from quotation where quotestatus = 1 and manuid = #{manuId}
+	]]>
+	</select>
+	
+	<select id="estilistCount_c" resultType="int">
+	<![CDATA[
+		select count(*) from quotation where quotestatus = 2 and manuid = #{manuId}
+	]]>
+	</select>
+	
+	<select id="estilistCount_w" resultType="int">
+	<![CDATA[
+		select count(*) from quotation where quotestatus = 0 and manuid = #{manuId}
+	]]>
+	</select>
+	
+	<select id="estilistCount_d" resultType="int">
+	<![CDATA[
+		select count(*) from quotation where quotestatus = 4 and manuid = #{manuId}
+	]]>
+	</select>
+	
+</mapper>

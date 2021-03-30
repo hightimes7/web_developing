@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC
+"-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+"http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+
+<tiles-definitions>
+
+	<definition name="/quotation/viewOneQuotation" extends="baseLayout">
+		<put-attribute name="title" value="전문가 목록" />
+		<put-attribute name="body" value="/WEB-INF/views/quotation/viewOneQuotation.jsp" />
+	</definition>
+	
+	<definition name="/quotation/insertQuotationForm" extends="baseLayout">
+		<put-attribute name="title" value="전문가 상세보기" />
+		<put-attribute name="body" value="/WEB-INF/views/quotation/insertQuotationForm.jsp" />
+	</definition>
+	
+</tiles-definitions>

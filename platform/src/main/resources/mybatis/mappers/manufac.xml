@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+      PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="mapper.manufac">
+	
+	<select id="loginById" resultType="manufacVO" parameterType="manufacVO">
+	  <![CDATA[
+	  	select * from manufacturer
+	  	where id= #{id} and pwd = #{pwd}
+	  ]]>	
+	</select>
+	
+	<insert id="join_manufac" parameterType="java.util.Map">
+		<![CDATA[
+			insert into manufacturer(id, pwd, manuName, manuCeoName, manuEmail, manuBizNo, manuBizType, manuAddr, manuDetailAddr, manuTel, manuStart, manuDetail, manuImg, productPrice, manuAuth) 
+			values(#{id},#{pwd},#{manuName},#{manuCeoName},#{manuEmail},#{manuBizNo},#{manuBizType},#{manuAddr}, #{manuDetailAddr},	#{manuTel},#{manuStart},#{manuDetail},#{manuImg},#{productPrice},'x')
+		]]>
+	</insert>
+	
+	<!--  제조업체 select -->
+	<select id="manufacselect" parameterType="String" resultType="manufacVO">
+		<![CDATA[
+		select * from manufacturer where id=#{id}
+		]]>
+	</select>
+	
+	<!-- 제조업체 리스트 -->
+	<select id="manufacList" resultType="manufacVO">
+		<![CDATA[
+			select * from manufacturer
+		]]>
+	</select>
+	
+	<!-- 제조업체 삭제 -->
+	<delete id="deletemanufac" parameterType="String">
+		<![CDATA[
+			delete from manufacturer where id = #{id}
+		]]>
+	</delete>
+	
+	<!-- 제조업체 수정 -->
+	<update id="updatemanufac" parameterType="java.util.Map">
+		update manufacturer
+		set pwd=#{pwd}, manuName=#{manuName}, manuCeoName=#{manuCeoName}, manuEmail=#{manuEmail}, manuBizNO=#{manuBizNo}, manuBizType=#{manuBizType},
+		manuAddr=#{manuAddr}, manuDetailAddr=#{manuDetailAddr}, manuTel=#{manuTel}, manuStart=#{manuStart}, manuDetail=#{manuDetail}, productPrice=#{productPrice},manuAuth=#{manuAuth}
+		<if test="manuImg !='' and manuImg != null">
+		, manuImg=#{manuImg}
+		</if>
+		where id=#{id} 
+	</update>
+
+	<!-- 정보수정 로그 입력 -->
+   <insert id="insertmanuEdit" parameterType="manufacVO">
+      <![CDATA[
+         insert into editinfo(no, id, pwd, name, ceoname, email, biztype, addr, detailaddr, tel, career, detail,price, type, editdate) values(editinfo_seq.NEXTVAL,#{id}, #{pwd}, #{manuName},#{manuCeoName}, #{manuEmail}, #{manuBizType},#{manuAddr}, #{manuDetailAddr}, #{manuTel}, #{manuStart}, #{manuDetail},#{productPrice}, 'manufac' , sysdate)
+      ]]>
+   </insert>
+   
+   <insert id="insertLoginLog" parameterType="manufacVO">
+   	<![CDATA[
+   		insert into loginlog(no,id,logintime) values(loginlog_seq.NEXTVAL,#{id},sysdate)
+   	]]>
+   </insert>
+   
+   <select id="selectByManuLoc" resultType="manufacVO" parameterType="String">
+		<![CDATA[
+			select * from manufacturer where manuaddr like '%'||#{loc}||'%'
+		]]>
+	</select>
+	
+	<select id="serchByManuType" resultType="manufacVO" parameterType="String">
+		<![CDATA[
+			select * from  manufacturer where manubiztype like '%'||#{manuType}||'%'
+		]]>
+	</select>
+	
+	<select id="serchByManuMinimumPrice" resultType="manufacVO" parameterType="Integer">
+		<![CDATA[
+			select * from manufacturer where productPrice>=#{price}
+		]]>
+	</select>
+	
+	<select id="viewManuFac" resultType="manufacVO" parameterType="String">
+		<![CDATA[
+			select * from manufacturer where id=#{id}
+		]]>
+	</select>
+	
+	<select id="listCount" resultType="int">
+	   <![CDATA[
+	      SELECT COUNT(*)
+	        FROM manufacturer
+	   ]]>
+   </select>
+   
+   <select id="allManuFac" resultType="manufacVO">
+      <![CDATA[
+         SELECT * 
+			FROM ( 
+			  SELECT ROW_NUMBER() OVER(ORDER BY rownum asc) AS RNUM, manufacturer.* 
+			  FROM manufacturer
+			)
+			WHERE RNUM BETWEEN #{start} AND #{end} ORDER BY rownum desc
+      ]]>
+   </select> 
+	
+</mapper>
+
+

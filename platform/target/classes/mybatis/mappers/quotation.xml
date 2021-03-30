@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mapper.quotation">
+	
+	<insert id="insertQuotation" parameterType="quotationVO">
+		<![CDATA[
+			insert into quotation(no,compid,manuid,item,price,quantity,vat,detail,filename,tempsave,quotestatus) 
+			values (#{no},#{compId},#{manuId},#{item},#{price},#{quantity},#{vat},#{detail},#{fileName},#{tempSave},#{quoteStatus})
+		]]>
+	</insert>
+	
+	<select id="quotationList" resultType="quotationVO">
+		<![CDATA[
+			select * from Quotation
+		]]>
+	</select>
+	
+	<select id="quotationOne" resultType="quotationVO" parameterType="String">
+		<![CDATA[
+			select * from Quotation where no=#{no}
+		]]>
+	</select>
+	
+	<select id="alarmQuotation" resultType="int" parameterType="String">
+		<![CDATA[
+			select count(*) from Quotation where QUOTESTATUS=0 and compId = #{compId}
+		]]>
+	</select>
+	
+	<select id="alarmManuQuotation" resultType="int" parameterType="String">
+		<![CDATA[
+			select count(*) from Quotation where QUOTESTATUS=0 and manuId = #{manuId}
+		]]>
+	</select>
+	
+</mapper>

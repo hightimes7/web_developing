@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+      PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="mapper.find">
+
+	<select id="showId" resultType="findVO" parameterType="findVO">
+	  <![CDATA[
+	  	select * from alluser where email = #{email}
+	  ]]>	
+	</select>
+	
+	<select id="findPwd" resultType="findVO" parameterType="findVO">
+	  <![CDATA[
+	  	select * from alluser
+	  	where id= #{id} and email = #{email} and type=#{type}
+	  ]]>
+	</select>
+	
+</mapper>
+
+

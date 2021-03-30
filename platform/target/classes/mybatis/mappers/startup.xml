@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+      PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="mapper.startup">
+
+	<!-- 스타트업 로그인 -->
+	<select id="loginById" resultType="startUpVO" parameterType="startUpVO">
+	  <![CDATA[
+	  	select * from startup
+	  	where id= #{id} and pwd = #{pwd}
+	  ]]>	
+	</select>
+
+	<!-- 스타트업 회원가입 -->
+   <insert id="join_startup" parameterType="java.util.Map">
+   <![CDATA[
+      insert into startUp(id, pwd, compName, compCeoName, compEmail, compBizNO, compBizType, compDetailAddr, compAddr, compTel, compStart, compDetail, compImg)
+      values(
+      #{id},#{pwd},#{compName},#{compCeoName},#{compEmail},#{compBizNo},#{compBizType},#{compDetailAddr},
+      #{compAddr},#{compTel},#{compStart},#{compDetail},#{compImg})
+   ]]>
+   </insert>
+   
+   <!--  스타트업 select -->
+   <select id="startUpselect" parameterType="String" resultType="startUpVO">
+   <![CDATA[
+   select * from startup where id=#{id}
+   ]]>
+   </select>
+   
+   <!--  스타트업 리스트 -->
+   <select id="startUpList" resultType="startUpVO">
+      <![CDATA[
+         select * from startUp
+      ]]>
+   </select>
+   
+   <!--  스타트업 삭제  -->
+   <delete id="deletestartUp" parameterType="String">
+      <![CDATA[
+         delete from startUp where id = #{id}
+      ]]>
+   </delete>
+   
+   <!-- 스타트업 수정 -->
+   <update id="updatestartUp" parameterType="java.util.Map">
+         update startup
+         set pwd=#{pwd}, compName=#{compName}, compCeoName=#{compCeoName}, compEmail=#{compEmail}, compBizNo=#{compBizNo}, 
+         compBizType=#{compBizType}, compAddr=#{compAddr}, compDetailAddr=#{compDetailAddr}, compTel=#{compTel}, compStart=#{compStart}, compDetail=#{compDetail}
+         <if test="compImg != '' and compImg != null">
+         , compImg=#{compImg}
+         </if>
+         where id=#{id}
+   </update>
+   
+   <!-- 정보수정 로그 입력 -->
+   <insert id="insertstartEdit" parameterType="startUpVO">
+      <![CDATA[
+         insert into editinfo(no, id, pwd, name, ceoname, email, biztype, addr, detailaddr, tel, career, detail, type, editdate) values(editinfo_seq.NEXTVAL,#{id}, #{pwd}, #{compName},#{compCeoName}, #{compEmail}, #{compBizType},#{compAddr}, #{compDetailAddr}, #{compTel}, #{compStart}, #{compDetail}, 'startup' , sysdate)
+      ]]>
+   </insert>
+   
+   <insert id="insertLoginLog" parameterType="startUpVO">
+  	<![CDATA[
+  		insert into LoginLog(no, id, logintime) values(loginlog_seq.NEXTVAL, #{id}, sysdate)
+  	]]> 
+   </insert>
+   
+   <select id="overlapCheck" parameterType="String" resultType="int">
+   	<![CDATA[
+   		select count(*) from alluser where id=#{id}
+   	]]>
+   </select>
+   
+</mapper>
+

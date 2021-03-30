@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mapper.mypage">
+	<resultMap type="alluserVO" id="alluserVO">
+		<result property="id" column="id" />
+		<result property="name" column="name" />
+		<result property="type" column="type" />
+		<result property="email" column="email" />
+		<result property="pwd" column="pwd" />
+	</resultMap>
+	
+	<select id="getManuScrap" parameterType="String" resultType="ManufacVO">
+		<![CDATA[
+			select rownum,manufacturer.* from manufacturer, manuscrap where manuscrap.manuid = manufacturer.id and manuscrap.compid = #{compid} and rownum < 4 order by rownum desc
+		]]>
+	</select>
+	
+	<select id="getExpertScrap" parameterType="String" resultType="expertVO">
+		<![CDATA[
+			select rownum, expert.* from expertscrap, expert where expert.id = expertscrap.expid and expertscrap.compid = #{compid} and rownum < 4 order by rownum desc
+		]]>
+	</select>
+	
+	<select id="getUserVO" resultType="alluserVO" parameterType="String">
+		<![CDATA[
+			select * from alluser where id = #{userId}
+		]]>
+	</select>
+	
+	<select id="getQuotation" parameterType="String" resultType="quotationVO">
+		<![CDATA[
+			select rownum,quotation.* from quotation where compid = #{userId} and rownum < 6 order by rownum desc
+		]]>
+	</select>
+	
+	<select id="getConsulting" parameterType="String" resultType="consultingVO">
+		<![CDATA[
+			select rownum,consulting.* from consulting where compid = #{userId} and rownum <6 order by rownum desc
+		]]><!-- 반환 결과 타입에서 계속 에러남  -->
+	</select>
+	
+	<select id="getManufacVO" parameterType="String" resultType="ManufacVO">
+		<![CDATA[
+			select * from manufacturer where id = #{userId}
+		]]>
+	</select>
+	
+	<select id="getStartUpVO" parameterType="String" resultType="startupVO">
+		<![CDATA[
+			select * from startup where id = #{userId}
+		]]>
+	</select>
+	
+	<select id="getExpertVO" parameterType="String" resultType="expertVO">
+		<![CDATA[
+			select * from expert where id = #{userId}
+		]]>
+	</select>
+	
+	<select id="getExpertImg" parameterType="String" resultType="expImageVO">
+		<![CDATA[
+			select * from exp_imagefile where id=#{userId}
+		]]>
+	</select>
+	
+	<select id="getAllExpertImage" resultType="expImageVO">
+		<![CDATA[
+			select * from exp_imagefile
+		]]>
+	</select>
+</mapper>

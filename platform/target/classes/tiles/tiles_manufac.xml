@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC
+"-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+"http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+
+<tiles-definitions>
+
+	<definition name="/manufac/manufacForm" extends="baseLayout">
+		<put-attribute name="title" value="제조업체 회원가입" />
+		<put-attribute name="body" value="/WEB-INF/views/manufac/manufacForm.jsp" />
+	</definition>
+	
+	<definition name="/manufac/manufacListForm" extends="baseLayout">
+		<put-attribute name="title" value="제조업체 목록" />
+		<put-attribute name="body" value="/WEB-INF/views/manufac/manufacListForm.jsp" />
+	</definition>
+	
+	<definition name="/manufac/manufacListFormo" extends="baseLayout">
+		<put-attribute name="title" value="등록된 제조업체 목록" />
+		<put-attribute name="body" value="/WEB-INF/views/manufac/manufacListFormo.jsp" />
+	</definition>
+	
+	<definition name="/manufac/manufacListFormx" extends="baseLayout">
+		<put-attribute name="title" value="등록되지않은 제조업체 목록" />
+		<put-attribute name="body" value="/WEB-INF/views/manufac/manufacListFormx.jsp" />
+	</definition>
+	
+	<definition name="/manufac/manufacSelectForm" extends="baseLayout">
+		<put-attribute name="title" value="제조업체 상세정보" />
+		<put-attribute name="body" value="/WEB-INF/views/manufac/manufacSelectForm.jsp" />
+	</definition>
+	
+	<definition name="/manufac/manufacSelectFormx" extends="baseLayout">
+		<put-attribute name="title" value="제조업체 등록" />
+		<put-attribute name="body" value="/WEB-INF/views/manufac/manufacSelectFormx.jsp" />
+	</definition>
+	
+</tiles-definitions>

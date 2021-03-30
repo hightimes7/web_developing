@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC
+"-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+"http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+
+<tiles-definitions>
+
+	<definition name="/expertpage/consulting" extends="baseLayout">
+		<put-attribute name="title" value="컨설팅 목록" />
+		<put-attribute name="body" value="/WEB-INF/views/expertpage/consulting.jsp" />
+	</definition>
+	
+	<definition name="/expertpage/con_wait" extends="baseLayout">
+		<put-attribute name="title" value="대기중인 컨설팅 목록" />
+		<put-attribute name="body" value="/WEB-INF/views/expertpage/con_wait.jsp" />
+	</definition>
+	
+	<definition name="/expertpage/con_ing" extends="baseLayout">
+		<put-attribute name="title" value="진행중인 컨설팅 목록" />
+		<put-attribute name="body" value="/WEB-INF/views/expertpage/con_ing.jsp" />
+	</definition>
+	
+	<definition name="/expertpage/con_de" extends="baseLayout">
+		<put-attribute name="title" value="거절된 컨설팅 목록" />
+		<put-attribute name="body" value="/WEB-INF/views/expertpage/con_de.jsp" />
+	</definition>
+	
+	<definition name="/expertpage/com_consulting" extends="baseLayout">
+		<put-attribute name="title" value="완료된 컨설팅 목록" />
+		<put-attribute name="body" value="/WEB-INF/views/expertpage/com_consulting.jsp" />
+	</definition>
+	
+</tiles-definitions>

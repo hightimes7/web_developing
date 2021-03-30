@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC
+"-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+"http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+
+<tiles-definitions>
+
+	<definition name="/expert/expertForm" extends="baseLayout">
+		<put-attribute name="title" value="전문가 회원가입" />
+		<put-attribute name="body" value="/WEB-INF/views/expert/expertForm.jsp" />
+	</definition>
+	
+	<definition name="/expert/expertListForm" extends="baseLayout">
+		<put-attribute name="title" value="전문가 목록" />
+		<put-attribute name="body" value="/WEB-INF/views/expert/expertListForm.jsp" />
+	</definition>
+	
+	<definition name="/expert/expertListFormo" extends="baseLayout">
+		<put-attribute name="title" value="등록된 전문가 목록" />
+		<put-attribute name="body" value="/WEB-INF/views/expert/expertListFormo.jsp" />
+	</definition>
+	
+	<definition name="/expert/expertListFormx" extends="baseLayout">
+		<put-attribute name="title" value="등록되지 않은 전문가 목록" />
+		<put-attribute name="body" value="/WEB-INF/views/expert/expertListFormx.jsp" />
+	</definition>
+	
+	<definition name="/expert/expertSelectForm" extends="baseLayout">
+		<put-attribute name="title" value="전문가 상세보기" />
+		<put-attribute name="body" value="/WEB-INF/views/expert/expertSelectForm.jsp" />
+	</definition>
+	
+	<definition name="/expert/expertSelectFormx" extends="baseLayout">
+		<put-attribute name="title" value="전문가 등록" />
+		<put-attribute name="body" value="/WEB-INF/views/expert/expertSelectFormx.jsp" />
+	</definition>
+	
+</tiles-definitions>

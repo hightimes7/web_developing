@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+      PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mapper.map">
+	<resultMap type="MapVO" id="mapVO">
+		<result property="manuName" column="manuname" />
+		<result property="manuAddr" column="manuaddr" />
+		<result property="manudetailaddr" column="manudetailaddr" />
+		<result property="id" column="id" />
+	</resultMap>
+	
+	<select id="getManuAddrList" resultType="mapVO">
+		<![CDATA[
+			select manuname,manuaddr,manudetailaddr,id from manufacturer
+		]]>
+	</select>
+	
+	<select id="getGeo" resultMap="mapVO">
+		select manuname, id,manuaddr from manufacturer
+	</select>
+</mapper>

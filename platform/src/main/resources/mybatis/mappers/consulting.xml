@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mapper.consulting">
+	<resultMap type="ConsultingVO" id="ConsultingResult">
+		<result property="no" column="no" />
+		<result property="compId" column="compId" />
+		<result property="expId" column="expId" />
+		<result property="title" column="title" />
+		<result property="content" column="content" />
+		<result property="fileName" column="fileName" />
+		<result property="price" column="price" />
+		<result property="reqDate" column="reqDate" />
+		<result property="status" column="status" />
+	</resultMap>
+	
+	<insert id="insertConsulting" parameterType="consultingVO">
+		<![CDATA[
+			insert into Consulting(no,compid,expid,title,content,filename,price,status) values (#{no},#{compId},#{expId},#{title},#{content},#{fileName},#{price},#{status})		
+		]]>
+	</insert>
+	
+	<select id="ConsultingList" resultMap="ConsultingResult">
+		<![CDATA[
+			select * from Consulting
+		]]>
+	</select>
+	
+	<select id="viewOneConsulting" resultType="ConsultingVO" parameterType="String">
+		<![CDATA[
+			select * from Consulting where no=#{no}
+		]]>
+	</select>
+	
+	<select id="alarmConsulting" resultType="int" parameterType="String">
+		<![CDATA[
+			select count(*) from Consulting where status= 0 and compId = #{compId}
+		]]>
+	</select>
+	
+	<select id="alarmExpConsulting" resultType="int" parameterType="String">
+		<![CDATA[
+			select count(*) from Consulting where status= 0 and expId = #{expId}
+		]]>
+	</select>
+	
+</mapper>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC
+"-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+"http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+
+<tiles-definitions>
+
+	<definition name="/manufacpage/estilist" extends="baseLayout">
+		<put-attribute name="title" value="견적서 목록" />
+		<put-attribute name="body" value="/WEB-INF/views/manufacpage/estilist.jsp" />
+	</definition>
+	
+	<definition name="/manufacpage/estilist_more_de" extends="baseLayout">
+		<put-attribute name="title" value="거절된 견적서 목록" />
+		<put-attribute name="body" value="/WEB-INF/views/manufacpage/estilist_more_de.jsp" />
+	</definition>
+	
+	<definition name="/manufacpage/estilist_more_ing" extends="baseLayout">
+		<put-attribute name="title" value="진행중인 견적서 목록" />
+		<put-attribute name="body" value="/WEB-INF/views/manufacpage/estilist_more_ing.jsp" />
+	</definition>
+	
+	<definition name="/manufacpage/estilist_more_w" extends="baseLayout">
+		<put-attribute name="title" value="진행중인 견적서 목록" />
+		<put-attribute name="body" value="/WEB-INF/views/manufacpage/estilist_more_w.jsp" />
+	</definition>
+	
+	<definition name="/manufacpage/com_estilist" extends="baseLayout">
+		<put-attribute name="title" value="완료된 견적 목록" />
+		<put-attribute name="body" value="/WEB-INF/views/manufacpage/com_estilist.jsp" />
+	</definition>
+	
+</tiles-definitions>

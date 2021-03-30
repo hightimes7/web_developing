@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+      PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mapper.manufacQnA">
+
+	<select id="getList" resultType="manufacQnAVO">
+		<![CDATA[
+		select level, no, parentNO, content, id, writeDate, manuId
+		from manuQnA
+		where manuId=#{manuId}
+		start with parentNO=0
+		connect by prior no=parentNO
+		order siblings by no desc
+		]]>
+	</select>
+	
+	<insert id="addQnA" parameterType="manufacQnAVO">
+		<selectKey keyProperty="no" resultType="int" order="BEFORE">
+	    	select nvl(max(no), 0) +1 from manuQnA
+	    </selectKey>
+		insert into manuQnA(no, parentNO, content, id, manuId)
+		values(#{no}, #{parentNO}, #{content}, #{id}, #{manuId})
+	</insert>
+	<!-- 
+	<insert id="addAnswer" parameterType="manufacQnAVO">
+		<selectKey keyProperty="no" resultType="int" order="BEFORE">
+	    	select nvl(max(articleNO), 0) +1 from manuQnA
+	    </selectKey>
+		insert into manuQnA(no, ,parentNO, content, id)
+		values(#{no}, #{parentNO}, #{content}, #{id})
+	</insert>
+	 -->
+	<update id="modManufacQnA" parameterType="java.util.Map">
+		<![CDATA[
+		update manuQnA
+		set content=#{content}, writeDate=sysdate
+		where no=#{no}
+		]]>
+	</update>
+	
+	<delete id="delManufacQnA" parameterType="int">
+		<![CDATA[
+		delete from manuQnA
+		where no in(
+						   select no from manuQnA
+						   start with no = #{no}
+						   connect by prior no = parentNO)
+		]]>
+	</delete>
+
+</mapper>
