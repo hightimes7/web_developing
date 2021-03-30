@@ -1,1 +1,1 @@
-# web_developing
+web platform using Spring MVC pattern
